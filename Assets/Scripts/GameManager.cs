@@ -2,22 +2,23 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEditor;
-using UnityEditor.SceneManagement;
-
+using TMPro;
 /// <summary> Manages the state of the whole application </summary>
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private string gameScene;
+  [SerializeField] private string gameScene;
+  [SerializeField] private TextMeshProUGUI highScoreMenu;
 
-    public void Play()
-    {
-        StartCoroutine(LoadScene(gameScene));
-    }
+  private void Start()
+  {
+    LevelManager.LoadHighScore();
+    highScoreMenu.text = "HighScore : "+LevelManager.highscoreText;
 
-    private IEnumerator LoadScene(string sceneName)
-    {
-        Debug.Log("Loading game!");
-        yield return new WaitForSeconds(14);
-        EditorSceneManager.LoadScene(sceneName);
-    }
+  }
+  public void Play()
+  {
+    SceneManager.LoadScene(gameScene);
+  }
+
+ 
 }
